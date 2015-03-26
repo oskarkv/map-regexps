@@ -64,8 +64,8 @@ In the second example above, the shortest possible matches are returned.
 `re-seq` lazily returns all matches, but matches can not overlap, which is why
 the first example above only returns one match.
 
-Implementation Details and Possible Improvements
-================================================
+Implementation Information and Possible Improvements
+====================================================
 
 The regexp engine implementation is based on [Regular Expression Matching: the
 Virtual Machine Approach](http://swtch.com/~rsc/regexp/regexp2.html) by Russ
