@@ -1,0 +1,97 @@
+// Copyright (c) 2015 Oskar Kvist.
+// All rights reserved.
+// The use and distribution terms for this software are covered by the
+// Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0.php)
+// which can be found in the file epl-v10.html at the root of this distribution.
+// By using this software in any fashion, you are agreeing to be bound by
+// the terms of this license.
+// You must not remove this notice, or any other, from this software.
+
+Package map_regexps; // Root Java package for generated files.
+
+// For a given input, the longest matching token will be
+// returned by the lexer. In the case of two matches of the
+// same length, the token listed first in the specification
+// file will be returned.
+
+
+Helpers
+
+    all = [0 .. 0xFFFF];
+    lowercase = ['a' .. 'z'];
+    uppercase = ['A' .. 'Z'];
+    digit = ['0' .. '9'];
+    hex_digit = [digit + [['a' .. 'f'] + ['A' .. 'F']]];
+    
+    tab = 9;
+    cr = 13;
+    lf = 10;
+    eol = cr lf | cr | lf; // This takes care of different platforms
+   
+
+    not_cr_lf = [all - [cr + lf]];
+    not_star = [all - '*'];
+    not_star_slash = [not_star - '/'];
+    
+    blank = (' ' | tab | eol)+;
+    
+    short_comment = '//' not_cr_lf* eol;
+    long_comment = '/*' not_star* '*'+ (not_star_slash not_star* '*'+)* '/';
+    
+    letter = lowercase | uppercase;
+    symletters = letter | digit | '+' | '-' | '_' | '*' | '?' | '/' | '\' | '=' | '.' |
+    ':';
+    clojurecodeletters = symletters | '[' | ']' | '(' | ')' | '#' | '`' | '"' | blank;
+    clojurecode = clojurecodeletters*;
+
+
+Tokens
+
+    event = '{' clojurecode '}';
+    osq = '[';
+    csq = ']';
+    osqneg = '[^';
+    bar = '|';
+    plus = '+';
+    star = '*';
+    qmark = '?';
+    opar = '(';
+    cpar = ')';
+    dot = '.';
+    whitespace = blank;
+
+
+Ignored Tokens
+
+    whitespace;
+
+
+Productions
+
+    union {-> exp} = {concat} concat {-> concat.exp}
+        | {union} union bar concat {-> New exp.union(union.exp, concat.exp)};
+    concat {-> exp} = {closure} closure {-> closure.exp}
+        | {concat} concat closure {-> New exp.concat(concat.exp, closure.exp)};
+    closure {-> exp} = {atom} atom {-> atom.exp}
+        | {qmark} atom qmark {-> New exp.qmark(atom.exp)}
+        | {star} atom star {-> New exp.star(atom.exp)}
+        | {plus} atom plus {-> New exp.plus(atom.exp)};
+    atom {-> exp} = {dot} dot {-> New exp.dot()}
+        | {event} event {-> New exp.event(event)}
+        | {paren} opar union cpar {-> New exp.paren(union.exp)}
+        | {set} osq [events]:event* csq {-> New exp.set([events])}
+        | {negset} osqneg [events]:event* csq {-> New exp.negset([events])};
+
+
+Abstract Syntax Tree
+
+    exp = {union} [left]:exp [right]:exp
+        | {concat} [left]:exp [right]:exp 
+        | {qmark} exp
+        | {star} exp
+        | {plus} exp
+        | {paren} exp
+        | {event} event
+        | {set} [events]:event*
+        | {negset} [events]:event*
+        | {dot};
