@@ -22,6 +22,9 @@ using it for, so that I can evaluate it.
 Usage
 =====
 
+Map-regexps is available from Clojars: `[org.clojars.oskarkv/map-regexps
+"0.1.0-SNAPSHOT"]`
+
 The available metacharacters are: `[ ]`, `[^ ]`, `( )`, `|`, `+`, `*`, `?`, `.`
 with their ordinary meanings. `{ }` is used to write a map literal. The whole
 literal will be read by Clojure, as Clojure code. In order for a map literal L
