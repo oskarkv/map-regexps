@@ -27,8 +27,8 @@ with their ordinary meanings. `{ }` is used to write a map literal. The whole
 literal will be read by Clojure, as Clojure code. In order for a map literal L
 in the pattern to match a map M in the input sequence, M must have all the
 key-value pairs that L has, but M may have more. Comparison is done with `=`.
-In order to match a map that has any of either of two values, use two literals
-and the `|` metacharacter.
+In order to match a map that has either of two values, use two literals and the
+`|` metacharacter.
 
 `( )` can be used for grouping and for saving submatches, that can be extracted
 from the match. The function `re-seq-pointers` is like `re-seq` but returns
