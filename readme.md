@@ -86,6 +86,8 @@ Two possible improvements I have thought about is:
 - Building the re from data instead of text.
 - Allowing functions as keys in the re literals, and matching when the function
   returns true. E.g. {:a pos?} matches maps that have a positive key for :a.
+- Optimize the matching engine by compiling the ASTs to Clojure code or
+  bytecode instead of to the current instructions.
 
 If you are interested in these, let me know.
 
