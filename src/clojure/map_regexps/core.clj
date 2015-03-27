@@ -42,7 +42,7 @@
   ;; set pars to 1 because the whole match is saved as if it were a parenthesis
   (let [[insts p] (compile-re (.getPExp ast) 1)
         insts (add-to-labels 1 insts)]
-    [(concat [[:save 0]] insts [[:save 1]]) p]))
+    [(concat [[:save 0]] insts [[:save 1] [:match]]) p]))
 
 (defn set-comp [node-type inst-name]
   (defmethod compile-re node-type [ast pars]
@@ -101,7 +101,7 @@
 (defn nfa [re]
   "Construct a non-deterministic finite automaton (NFA) from the regexp re."
   (let [[insts pars] (compile-re (parse re) 0)]
-    {:nfa (conj (vec insts) [:match]) :pars pars}))
+    {:nfa (vec insts) :pars pars}))
 
 (defn terminal-matches? [terminal input]
   (when (associative? input)
