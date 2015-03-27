@@ -85,7 +85,8 @@ equivalent on Unix-like systems.
 A few possible improvements:
 - Building the RE from data instead of text.
 - Allowing functions as keys in the RE literals, and matching when the function
-  returns true. E.g. {:a pos?} matches maps that have a positive key for :a.
+  returns true. E.g. `{:a pos?}` would match maps that have a positive value
+  for the key `:a`.
 - Optimize the matching engine by compiling the ASTs to Clojure code or
   bytecode instead of to the current instructions.
 - Extend the REs to not only work on maps, but arbitrary data.
