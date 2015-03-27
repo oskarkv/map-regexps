@@ -16,8 +16,8 @@ Please Help Me
 
 This code was written as part of a school project. Part of the requirements is
 that I evaluate the usefulness of the project with real-world problems. If you
-use map-regexps, please tell me (oskar.kvist@gmail.com) about what you are
-using it for, so that I can evaluate it.
+use map-regexps, or even just consider using it, please tell me
+(oskar.kvist@gmail.com) about it, so that I can evaluate my project.
 
 Usage
 =====
