@@ -82,12 +82,14 @@ can be found in `src/lang.grammar`. To change it, download `sablecc.jar`
 (included in the SableCC zip file) and run `build_parser.bat`, or do the
 equivalent on Unix-like systems.
 
-Two possible improvements I have thought about is:
-- Building the re from data instead of text.
+A few possible improvements:
+- Building the RE from data instead of text.
 - Allowing functions as keys in the re literals, and matching when the function
   returns true. E.g. {:a pos?} matches maps that have a positive key for :a.
 - Optimize the matching engine by compiling the ASTs to Clojure code or
   bytecode instead of to the current instructions.
+- Exend the regexps to not only work on maps, but arbitrary data.
+- Nesting REs inside terminals.
 
 If you are interested in these, let me know.
 
