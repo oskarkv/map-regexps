@@ -1,7 +1,8 @@
 /target
 /classes
 /checkouts
-/src/java
+/src/java/map_regexps
+/lib/sablecc.jar
 pom.xml
 pom.xml.asc
 *.class

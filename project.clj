@@ -7,4 +7,6 @@
                  [asm "3.2"]]
   :source-paths      ["src/clojure"]
   :java-source-paths ["src/java"]
-  :resource-paths    ["lib"])
+  :resource-paths    ["lib"]
+  :target-path "target/"
+  :compile-path "%s/classes")
